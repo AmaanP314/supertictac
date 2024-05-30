@@ -7,6 +7,7 @@ let superBoard = [
 let currentPlayer = "X";
 let gameActive = true;
 let activeMiniBoard = null;
+document.getElementById("message").innerText = `${currentPlayer} to play`;
 
 function initializeSuperBoard() {
   let superBoardElement = document.getElementById("super-board");
@@ -57,7 +58,12 @@ function makeMove(superRow, superCol, miniRow, miniCol) {
   if (checkMiniBoardWin(miniBoard)) {
     superBoard[superRow][superCol] = currentPlayer;
     miniBoard.classList.add("winner");
-    markWinningCells(miniBoard, currentPlayer);
+    markWinningMiniBoard(miniBoard, currentPlayer);
+    if (checkWinner(superBoard) || checkDraw()) {
+      document
+        .querySelectorAll(".cell")
+        .forEach((cell) => cell.classList.remove("active-cell"));
+    }
     if (checkWinner(superBoard)) {
       document.getElementById(
         "message"
@@ -78,7 +84,7 @@ function makeMove(superRow, superCol, miniRow, miniCol) {
   }
 
   currentPlayer = currentPlayer === "X" ? "O" : "X";
-  document.getElementById("message").innerText = `${currentPlayer}'s turn`;
+  document.getElementById("message").innerText = `${currentPlayer} to play`;
 
   activeMiniBoard =
     superBoard[miniRow][miniCol] === "" ? [miniRow, miniCol] : null;
@@ -93,38 +99,38 @@ function makeMove(superRow, superCol, miniRow, miniCol) {
   }
 }
 
-function markWinningCells(miniBoard, player) {
-  let cells = miniBoard.getElementsByClassName("cell");
-  let board = [];
+function markWinningMiniBoard(miniBoard, player) {
+  const cells = Array.from(miniBoard.getElementsByClassName("cell"));
 
-  for (let i = 0; i < 9; i += 3) {
-    board.push([cells[i], cells[i + 1], cells[i + 2]]);
-  }
+  let playerColor = "";
+  if (player === "X") {
+    playerColor = "#f21717";
 
-  // Check rows
-  for (let row of board) {
-    if (row.every((cell) => cell.innerText === player)) {
-      row.forEach((cell) => cell.classList.add("winner"));
-    }
-  }
+    cells.forEach((cell, index) => {
+      const row = Math.floor(index / 3);
+      const col = index % 3;
+      cell.innerText = "";
+      if (
+        !(
+          (row === 0 && col === 1) ||
+          (row === 1 && (col === 0 || col === 2)) ||
+          (row === 2 && col === 1)
+        )
+      ) {
+        cell.style.backgroundColor = playerColor;
+      }
+    });
+  } else if (player === "O") {
+    playerColor = "#2e7eff";
 
-  // Check columns
-  for (let i = 0; i < 3; i++) {
-    let column = [board[0][i], board[1][i], board[2][i]];
-    if (column.every((cell) => cell.innerText === player)) {
-      column.forEach((cell) => cell.classList.add("winner"));
-    }
-  }
-
-  // Check diagonals
-  let diagonal1 = [board[0][0], board[1][1], board[2][2]];
-  let diagonal2 = [board[0][2], board[1][1], board[2][0]];
-
-  if (diagonal1.every((cell) => cell.innerText === player)) {
-    diagonal1.forEach((cell) => cell.classList.add("winner"));
-  }
-  if (diagonal2.every((cell) => cell.innerText === player)) {
-    diagonal2.forEach((cell) => cell.classList.add("winner"));
+    cells.forEach((cell, index) => {
+      const row = Math.floor(index / 3);
+      const col = index % 3;
+      cell.innerText = "";
+      if (!(row === 1 && col === 1)) {
+        cell.style.backgroundColor = playerColor;
+      }
+    });
   }
 }
 
@@ -167,7 +173,7 @@ function checkWinner(board) {
 }
 
 function checkMiniBoardWin(miniBoard) {
-  let cells = miniBoard.getElementsByClassName("cell");
+  let cells = Array.from(miniBoard.getElementsByClassName("cell")); // Convert HTMLCollection to Array
   let board = [];
 
   for (let i = 0; i < 9; i += 3) {
@@ -177,6 +183,7 @@ function checkMiniBoardWin(miniBoard) {
       cells[i + 2].innerText,
     ]);
   }
+  console.log(board);
 
   // Check rows
   for (let i = 0; i < 3; i++) {
@@ -229,17 +236,19 @@ function resetGame() {
     ["", "", ""],
     ["", "", ""],
   ];
-  currentPlayer = "X";
+  let currentPlayer = "X";
   gameActive = true;
   activeMiniBoard = null;
   document.querySelectorAll(".cell").forEach((cell) => {
     cell.innerText = "";
     cell.classList.remove("winner", "active-cell");
+    cell.style.backgroundColor = "";
   });
   document.querySelectorAll(".board").forEach((board) => {
     board.classList.remove("winner");
   });
-  document.getElementById("message").innerText = `${currentPlayer}'s turn`;
+  document.getElementById("message").innerText = `${currentPlayer} to play`;
 }
 
 initializeSuperBoard();
+///////////////////////////////////////////////////////////////

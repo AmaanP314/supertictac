@@ -2,11 +2,22 @@ body {
   font-family: Arial, sans-serif;
   text-align: center;
   margin: 0;
+  background-color: #f0f0f0;
+}
+
+#message {
+  font-size: 2em;
+  font-weight: 700;
+  position: absolute;
+  top: 30px;
+  left: 50%;
+  transform: translateX(-50%);
 }
 
 h1 {
   font-size: 2em;
-  margin: 20px 0;
+
+  margin: 10px 0px 50px 0px;
 }
 
 .container {
@@ -20,10 +31,11 @@ h1 {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   grid-template-rows: repeat(3, 1fr);
-  gap: 10px;
-  max-width: 90vw;
+
+  max-width: 70vw;
   width: 90vw;
-  min-height: 80vh;
+  min-height: 100vh;
+  border: 5px solid #c0c0c0;
 }
 
 .board {
@@ -32,7 +44,7 @@ h1 {
   grid-template-rows: repeat(3, 1fr);
   gap: 2px;
   background-color: #eee;
-  border: 2px solid #333;
+  border: 5px solid #333;
 }
 
 .cell {
@@ -56,16 +68,13 @@ h1 {
   border-bottom: none;
 }
 
-.cell.winner {
-  background-color: #f21717;
+.winner {
+  font-weight: bold;
+  color: #fff;
 }
 
-#message {
-  font-size: 1.2em;
-  position: absolute;
-  top: 40px;
-  left: 50%;
-  transform: translateX(-50%);
+.cell.winner {
+  background-color: #f21717;
 }
 
 button {
