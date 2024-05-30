@@ -8,6 +8,7 @@ let currentPlayer = "X";
 let gameActive = true;
 let activeMiniBoard = null;
 document.getElementById("message").innerText = `${currentPlayer} to play`;
+document.getElementById("message").classList.add("xfont");
 
 function initializeSuperBoard() {
   let superBoardElement = document.getElementById("super-board");
@@ -85,6 +86,13 @@ function makeMove(superRow, superCol, miniRow, miniCol) {
 
   currentPlayer = currentPlayer === "X" ? "O" : "X";
   document.getElementById("message").innerText = `${currentPlayer} to play`;
+  if (currentPlayer === "X") {
+    document.getElementById("message").classList.remove("ofont");
+    document.getElementById("message").classList.add("xfont");
+  } else {
+    document.getElementById("message").classList.remove("xfont");
+    document.getElementById("message").classList.add("ofont");
+  }
 
   activeMiniBoard =
     superBoard[miniRow][miniCol] === "" ? [miniRow, miniCol] : null;
@@ -237,6 +245,8 @@ function resetGame() {
     ["", "", ""],
   ];
   let currentPlayer = "X";
+  document.getElementById("message").classList.remove("ofont");
+  document.getElementById("message").classList.add("xfont");
   gameActive = true;
   activeMiniBoard = null;
   document.querySelectorAll(".cell").forEach((cell) => {
@@ -251,4 +261,3 @@ function resetGame() {
 }
 
 initializeSuperBoard();
-///////////////////////////////////////////////////////////////
