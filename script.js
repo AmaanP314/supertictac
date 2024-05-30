@@ -7,6 +7,7 @@ let superBoard = [
 let currentPlayer = "X";
 let gameActive = true;
 let activeMiniBoard = null;
+let bodyEl = document.querySelector("body");
 document.getElementById("message").innerText = `${currentPlayer} to play`;
 document.getElementById("message").classList.add("xfont");
 
@@ -55,6 +56,11 @@ function makeMove(superRow, superCol, miniRow, miniCol) {
   if (cell.innerText !== "" || miniBoard.classList.contains("winner")) return;
 
   cell.innerText = currentPlayer;
+  if (cell.innerText === "X") {
+    cell.classList.add("X");
+  } else {
+    cell.classList.add("O");
+  }
 
   if (checkMiniBoardWin(miniBoard)) {
     superBoard[superRow][superCol] = currentPlayer;
@@ -69,6 +75,11 @@ function makeMove(superRow, superCol, miniRow, miniCol) {
       document.getElementById(
         "message"
       ).innerText = `${currentPlayer} wins the game!`;
+      if (currentPlayer === "X") bodyEl.style.backgroundColor = "red";
+      else bodyEl.style.backgroundColor = "blue";
+      document.getElementById("message").style.color = "white";
+      document.querySelector("h1").style.color = "white";
+
       gameActive = false;
       return;
     } else if (checkDraw()) {
@@ -129,7 +140,7 @@ function markWinningMiniBoard(miniBoard, player) {
       }
     });
   } else if (player === "O") {
-    playerColor = "#2e7eff";
+    playerColor = "blue";
 
     cells.forEach((cell, index) => {
       const row = Math.floor(index / 3);
