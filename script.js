@@ -75,10 +75,9 @@ function makeMove(superRow, superCol, miniRow, miniCol) {
       document.getElementById(
         "message"
       ).innerText = `${currentPlayer} wins the game!`;
-      if (currentPlayer === "X") bodyEl.style.backgroundColor = "red";
-      else bodyEl.style.backgroundColor = "blue";
-      document.getElementById("message").style.color = "white";
-      document.querySelector("h1").style.color = "white";
+      bodyEl.style.backgroundColor = currentPlayer === "X" ? "red" : "blue";
+      document.getElementById("message").classList.add("white");
+      document.querySelector("h1").classList.add("white");
 
       gameActive = false;
       return;
@@ -97,13 +96,12 @@ function makeMove(superRow, superCol, miniRow, miniCol) {
 
   currentPlayer = currentPlayer === "X" ? "O" : "X";
   document.getElementById("message").innerText = `${currentPlayer} to play`;
-  if (currentPlayer === "X") {
-    document.getElementById("message").classList.remove("ofont");
-    document.getElementById("message").classList.add("xfont");
-  } else {
-    document.getElementById("message").classList.remove("xfont");
-    document.getElementById("message").classList.add("ofont");
-  }
+  document
+    .getElementById("message")
+    .classList.remove(currentPlayer === "X" ? "ofont" : "xfont");
+  document
+    .getElementById("message")
+    .classList.add(currentPlayer === "X" ? "xfont" : "ofont");
 
   activeMiniBoard =
     superBoard[miniRow][miniCol] === "" ? [miniRow, miniCol] : null;
@@ -255,14 +253,16 @@ function resetGame() {
     ["", "", ""],
     ["", "", ""],
   ];
-  let currentPlayer = "X";
-  document.getElementById("message").classList.remove("ofont");
+  currentPlayer = "X";
+  bodyEl.style.backgroundColor = "white";
+  document.querySelector("h1").classList.remove("white");
+  document.getElementById("message").classList.remove("ofont", "white");
   document.getElementById("message").classList.add("xfont");
   gameActive = true;
   activeMiniBoard = null;
   document.querySelectorAll(".cell").forEach((cell) => {
     cell.innerText = "";
-    cell.classList.remove("winner", "active-cell");
+    cell.classList.remove("winner", "active-cell", "X", "O");
     cell.style.backgroundColor = "";
   });
   document.querySelectorAll(".board").forEach((board) => {
