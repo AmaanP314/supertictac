@@ -6,6 +6,7 @@ body {
 }
 
 #message {
+  font-family: "Roboto", sans-serif;
   font-size: 2em;
   font-weight: 700;
   position: absolute;
@@ -16,7 +17,8 @@ body {
 
 h1 {
   font-size: 2em;
-
+  font-family: "Orbitron", sans-serif;
+  font-weight: bold;
   margin: 10px 0px 50px 0px;
 }
 
