@@ -112,7 +112,11 @@ function makeMove(superRow, superCol, miniRow, miniCol) {
     document
       .querySelector(`.board[data-row="${miniRow}"][data-col="${miniCol}"]`)
       .querySelectorAll(".cell")
-      .forEach((cell) => cell.classList.add("active-cell"));
+      .forEach((cell) => {
+        if (cell.innerText === "") {
+          cell.classList.add("active-cell");
+        }
+      });
   }
 }
 
@@ -126,6 +130,7 @@ function markWinningMiniBoard(miniBoard, player) {
     cells.forEach((cell, index) => {
       const row = Math.floor(index / 3);
       const col = index % 3;
+      cell.classList.remove("X");
       cell.innerText = "";
       if (
         !(
@@ -143,6 +148,7 @@ function markWinningMiniBoard(miniBoard, player) {
     cells.forEach((cell, index) => {
       const row = Math.floor(index / 3);
       const col = index % 3;
+      cell.classList.remove("O");
       cell.innerText = "";
       if (!(row === 1 && col === 1)) {
         cell.style.backgroundColor = playerColor;
@@ -200,7 +206,6 @@ function checkMiniBoardWin(miniBoard) {
       cells[i + 2].innerText,
     ]);
   }
-  console.log(board);
 
   // Check rows
   for (let i = 0; i < 3; i++) {

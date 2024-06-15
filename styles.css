@@ -69,18 +69,18 @@ h1 {
 }
 .X {
   font-weight: bold;
-  color: red;
-  /* background-color: red; */
+  color: white;
+  background-color: red;
 }
 .O {
   font-weight: bold;
-  color: blue;
-  /* background-color: blue; */
+  color: white;
+  background-color: blue;
 }
 
-.cell:hover {
+/* .cell:hover {
   background-color: #f0f0f0;
-}
+} */
 
 .cell:not(:last-child) {
   border-right: none;
