@@ -275,5 +275,10 @@ function resetGame() {
   });
   document.getElementById("message").innerText = `${currentPlayer} to play`;
 }
-
+function openInfoPage() {
+  window.open(
+    "https://www.thegamegal.com/2018/09/01/ultimate-tic-tac-toe/",
+    "_blank"
+  );
+}
 initializeSuperBoard();

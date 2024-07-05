@@ -10,7 +10,7 @@ body {
   font-size: 2em;
   font-weight: 700;
   position: absolute;
-  top: 15px;
+  top: 50px;
   left: 50%;
   transform: translateX(-50%);
 }
@@ -29,24 +29,25 @@ h1 {
   height: 100vh;
 }
 
-.super-board {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  grid-template-rows: repeat(3, 1fr);
-
-  max-width: 70vw;
-  width: 90vw;
-  min-height: 100vh;
-  border: 10px solid #c0c0c0;
-}
-
 .board {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   grid-template-rows: repeat(3, 1fr);
   gap: 2px;
   background-color: #eee;
-  border: 5px solid #333;
+  border: 3.5px solid #333;
+}
+
+.super-board {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: repeat(3, 1fr);
+  max-width: 90vh;
+  width: 90vh;
+  aspect-ratio: 1;
+  /* border: 5px solid #c0c0c0; */
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.5), 0 6px 6px rgba(0, 0, 0, 0.5);
+  background-color: #fff;
 }
 
 .cell {
@@ -56,7 +57,7 @@ h1 {
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 4vw;
+  font-size: 3vw;
   cursor: pointer;
   border: 1px solid #ccc;
 }
@@ -99,7 +100,8 @@ h1 {
   color: white;
 }
 
-button {
+button,
+#info-button {
   font-size: 1em;
   padding: 10px 20px;
   background-color: #4caf50;
@@ -109,11 +111,13 @@ button {
   margin-top: 20px;
 }
 
-button:hover {
+button:hover,
+#info-button:hover {
   background-color: #45a049;
 }
 
-button:active {
+button:active,
+#info-button:active {
   background-color: #3e8e41;
   transform: translateY(1px);
 }
@@ -126,7 +130,6 @@ button:active {
     max-width: 90%;
     width: 90%;
     min-height: 70vh;
-    border: 5px solid #c0c0c0;
   }
   .board {
     border: 2.5px solid #333;
